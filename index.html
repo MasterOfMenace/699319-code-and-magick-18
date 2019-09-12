@@ -184,16 +184,13 @@
 <script>
   'use strict'
 
+  var WIZARD_PROPORTION = 1.337;
   var fireballSize = 22;
   var wizardSpeed = 3;
   var wizardWidth = 70;
-  var WIZARD_PROPORTION = 1.337;
 
   function getFireballSpeed(left) {
-    if (left) {
-    return 5;
-    } 
-    return 2;
+    return left ? 5 : 2;
   }
 
   function getWizardHeight(wizardWidth) {
