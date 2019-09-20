@@ -35,7 +35,7 @@ var wizards = [
 ];
 
 function getRandomElement(array) {
-  var index = Math.floor(Math.random() * array.length); /* Math.random() * (max - min + 1) + min) */
+  var index = Math.floor(Math.random() * array.length);
   return array[index];
 }
 
