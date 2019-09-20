@@ -8,35 +8,25 @@ var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161
 
 var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 
-var setup = document.querySelector('.setup');
-setup.classList.remove('hidden');
-
-var wizards = [
-  {
-    name: getRandomElement(NAMES) + ' ' + getRandomElement(SURNAMES),
-    coatColor: getRandomElement(COAT_COLORS),
-    eyesColor: getRandomElement(EYES_COLORS)
-  },
-  {
-    name: getRandomElement(NAMES) + ' ' + getRandomElement(SURNAMES),
-    coatColor: getRandomElement(COAT_COLORS),
-    eyesColor: getRandomElement(EYES_COLORS)
-  },
-  {
-    name: getRandomElement(NAMES) + ' ' + getRandomElement(SURNAMES),
-    coatColor: getRandomElement(COAT_COLORS),
-    eyesColor: getRandomElement(EYES_COLORS)
-  },
-  {
-    name: getRandomElement(NAMES) + ' ' + getRandomElement(SURNAMES),
-    coatColor: getRandomElement(COAT_COLORS),
-    eyesColor: getRandomElement(EYES_COLORS)
-  }
-];
-
 function getRandomElement(array) {
   var index = Math.floor(Math.random() * array.length);
   return array[index];
+}
+
+function createRandomWizard() {
+  var wizard = {};
+  wizard.name = getRandomElement(NAMES) + ' ' + getRandomElement(SURNAMES);
+  wizard.coatColor = getRandomElement(COAT_COLORS);
+  wizard.eyesColor = getRandomElement(EYES_COLORS);
+  return wizard;
+}
+
+function createArrayOfWizards(number) {
+  var array = [];
+  for (var i = 0; i < number; i++) {
+    array.push(createRandomWizard());
+  }
+  return array;
 }
 
 function createWizard(data) {
@@ -53,8 +43,17 @@ function renderWizards(array) {
   }
 }
 
+function showElement(el) {
+  document.querySelector(el).classList.remove('hidden');
+}
+
+var wizards = createArrayOfWizards(4);
+
+showElement('.setup');
+
 var setupSimilarList = document.querySelector('.setup-similar-list');
-document.querySelector('.setup-similar').classList.remove('hidden');
+
+showElement('.setup-similar');
 
 var template = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
