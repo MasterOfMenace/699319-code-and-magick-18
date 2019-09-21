@@ -38,9 +38,14 @@ function createWizard(data) {
 }
 
 function renderWizards(array) {
+  var fragment = document.createDocumentFragment();
+
   for (var i = 0; i < array.length; i++) {
-    setupSimilarList.appendChild(createWizard(array[i]));
+    var wizard = createWizard(array[i]);
+    fragment.appendChild(wizard);
   }
+
+  setupSimilarList.appendChild(fragment);
 }
 
 function showElement(el) {
