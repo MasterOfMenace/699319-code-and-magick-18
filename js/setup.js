@@ -8,6 +8,12 @@ var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161
 
 var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 
+var wizards = createArrayOfWizards(4);
+
+var setupSimilarList = document.querySelector('.setup-similar-list');
+
+var template = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
+
 function getRandomElement(array) {
   var index = Math.floor(Math.random() * array.length);
   return array[index];
@@ -52,14 +58,100 @@ function showElement(el) {
   document.querySelector(el).classList.remove('hidden');
 }
 
-var wizards = createArrayOfWizards(4);
-
-showElement('.setup');
-
-var setupSimilarList = document.querySelector('.setup-similar-list');
-
 showElement('.setup-similar');
 
-var template = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
-
 renderWizards(wizards);
+
+// код задания 4 раздела
+
+var USER_COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
+
+var USER_EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
+
+var USER_FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
+
+var setup = document.querySelector('.setup');
+var setupOpenIcon = document.querySelector('.setup-open-icon');
+var setupCloseButton = document.querySelector('.setup-close');
+var userNameInput = document.querySelector('.setup-user-name');
+var wizardCoat = document.querySelector('.wizard-coat');
+var wizardCoatInput = document.querySelector('input[name=coat-color]');
+var wizardEyes = document.querySelector('.wizard-eyes');
+var wizardEyesInput = document.querySelector('input[name=eyes-color]');
+var fireball = document.querySelector('.setup-fireball-wrap');
+var fireballInput = fireball.querySelector('input[type=hidden]');
+
+
+function openSetup() {
+  setup.classList.remove('hidden');
+  document.addEventListener('keydown', setupEscPressHandler);
+}
+
+function closeSetup() {
+  setup.classList.add('hidden');
+  document.removeEventListener('keydown', setupEscPressHandler);
+}
+
+function setupEscPressHandler(evt) {
+  if (evt.keyCode === 27) {
+    closeSetup();
+  }
+}
+
+function changeColor(arr, elem) {
+  var dataColor = +elem.dataset.color ? +elem.dataset.color : 0;
+  var newColor;
+
+  if (dataColor === arr.length - 1) {
+    dataColor = 0;
+  } else {
+    dataColor++;
+  }
+  newColor = arr[dataColor];
+  elem.dataset.color = dataColor;
+  return newColor;
+}
+
+wizardCoat.addEventListener('click', function () {
+  var newColor = changeColor(USER_COAT_COLORS, wizardCoat);
+  wizardCoat.style.fill = newColor;
+  wizardCoatInput.value = newColor;
+});
+
+wizardEyes.addEventListener('click', function () {
+  var newColor = changeColor(USER_EYES_COLORS, wizardEyes);
+  wizardEyes.style.fill = newColor;
+  wizardEyesInput.value = newColor;
+});
+
+fireball.addEventListener('click', function () {
+  var newColor = changeColor(USER_FIREBALL_COLORS, fireball);
+  fireball.style.backgroundColor = newColor;
+  fireballInput.value = newColor;
+});
+
+setupOpenIcon.addEventListener('click', openSetup);
+
+setupOpenIcon.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === 13) {
+    openSetup();
+  }
+});
+
+setupCloseButton.addEventListener('click', closeSetup);
+
+setupCloseButton.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === 13) {
+    closeSetup();
+  }
+});
+
+userNameInput.addEventListener('focus', function () {
+  document.removeEventListener('keydown', setupEscPressHandler);
+});
+
+userNameInput.addEventListener('blur', function () {
+  document.addEventListener('keydown', setupEscPressHandler);
+});
+
+
