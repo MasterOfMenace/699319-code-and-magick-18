@@ -70,6 +70,9 @@ var USER_EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 
 var USER_FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 
+var ESC_KEY_CODE = 27;
+var ENTER_KEY_CODE = 13;
+
 var setup = document.querySelector('.setup');
 var setupOpenIcon = document.querySelector('.setup-open-icon');
 var setupCloseButton = document.querySelector('.setup-close');
@@ -93,7 +96,7 @@ function closeSetup() {
 }
 
 function setupEscPressHandler(evt) {
-  if (evt.keyCode === 27) {
+  if (evt.keyCode === ESC_KEY_CODE) {
     closeSetup();
   }
 }
@@ -102,11 +105,7 @@ function changeColor(arr, elem) {
   var dataColor = +elem.dataset.color ? +elem.dataset.color : 0;
   var newColor;
 
-  if (dataColor === arr.length - 1) {
-    dataColor = 0;
-  } else {
-    dataColor++;
-  }
+  dataColor = dataColor === arr.length - 1 ? 0 : dataColor + 1;
   newColor = arr[dataColor];
   elem.dataset.color = dataColor;
   return newColor;
@@ -133,7 +132,7 @@ fireball.addEventListener('click', function () {
 setupOpenIcon.addEventListener('click', openSetup);
 
 setupOpenIcon.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === 13) {
+  if (evt.keyCode === ENTER_KEY_CODE) {
     openSetup();
   }
 });
@@ -141,7 +140,7 @@ setupOpenIcon.addEventListener('keydown', function (evt) {
 setupCloseButton.addEventListener('click', closeSetup);
 
 setupCloseButton.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === 13) {
+  if (evt.keyCode === ENTER_KEY_CODE) {
     closeSetup();
   }
 });
