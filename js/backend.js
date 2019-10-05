@@ -1,6 +1,16 @@
 'use strict';
 
 window.backend = (function () {
+  var XHR_SUCESS_STATUS = 200;
+  var XHR_TIMEOUT = 10000;
+
+  function loadHandler(xhr, onLoad, onError) {
+    if (xhr.status === XHR_SUCESS_STATUS) {
+      onLoad(xhr.response);
+    } else {
+      onError('Статус ответа ' + xhr.status + ' ' + xhr.statusText);
+    }
+  }
 
   function load(onLoad, onError) {
     var URL = 'https://js.dump.academy/code-and-magick/data';
@@ -10,12 +20,9 @@ window.backend = (function () {
     xhr.open('GET', URL);
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
-        onLoad(xhr.response);
-      } else {
-        onError('Статус ответа ' + xhr.status + ' ' + xhr.statusText);
-      }
-    });
+      loadHandler(xhr, onLoad, onError);
+    }
+    );
 
     xhr.addEventListener('error', function () {
       onError('Произошла ошибка соединения');
@@ -25,7 +32,7 @@ window.backend = (function () {
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
-    xhr.timeout = 10000;
+    xhr.timeout = XHR_TIMEOUT;
 
     xhr.send();
 
@@ -38,11 +45,7 @@ window.backend = (function () {
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
-        onLoad(xhr.response);
-      } else {
-        onError('Статус ответа ' + xhr.status + ' ' + xhr.statusText);
-      }
+      loadHandler(xhr, onLoad, onError);
     });
 
     xhr.open('POST', URL);

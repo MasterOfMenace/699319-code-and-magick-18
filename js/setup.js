@@ -12,6 +12,8 @@
     ENTER: 13,
   };
 
+  var WIZARDS_COUNT = 4;
+
   var setupSimilarList = document.querySelector('.setup-similar-list');
   var template = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
@@ -70,7 +72,7 @@
 
   function loadSuccessHandler(data) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i < WIZARDS_COUNT; i++) {
       fragment.appendChild(createWizard(getRandomElement(data)));
     }
     setupSimilarList.appendChild(fragment);
