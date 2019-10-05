@@ -1,11 +1,11 @@
 'use strict';
 
 window.backend = (function () {
-  var XHR_SUCESS_STATUS = 200;
+  var XHR_SUCCESS_STATUS = 200;
   var XHR_TIMEOUT = 10000;
 
   function loadHandler(xhr, onLoad, onError) {
-    if (xhr.status === XHR_SUCESS_STATUS) {
+    if (xhr.status === XHR_SUCCESS_STATUS) {
       onLoad(xhr.response);
     } else {
       onError('Статус ответа ' + xhr.status + ' ' + xhr.statusText);
