@@ -1,6 +1,7 @@
 'use strict';
 
 window.render = (function () {
+  var MAX_SIMILAR_WIZARDS_COUNT = 4;
   var template = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
   var setupSimilarList = document.querySelector('.setup-similar-list');
 
@@ -17,7 +18,7 @@ window.render = (function () {
   }
 
   function renderWizard(data) {
-    var WIZARDS_COUNT = data.length > 4 ? 4 : data.length;
+    var WIZARDS_COUNT = data.length > MAX_SIMILAR_WIZARDS_COUNT ? MAX_SIMILAR_WIZARDS_COUNT : data.length;
     var fragment = document.createDocumentFragment();
     setupSimilarList.innerHTML = '';
     for (var i = 0; i < WIZARDS_COUNT; i++) {
